@@ -1,15 +1,13 @@
 <template>
-  <playtime/>
+  <playtime></playtime>
 </template>
 
 <script>
-/*import HelloWorld from './components/HelloWorld.vue'*/
-import 'element-plus/dist/index.css'
 import playtime from "@/components/playtime.vue";
+import 'element-plus/dist/index.css'
 export default {
   name: 'App',
   components: {
-    /*HelloWorld*/
     playtime
   }
 }
@@ -22,6 +20,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
