@@ -1,7 +1,10 @@
 <template>
-    <div name="main">
-        <div></div>
+  <el-header></el-header>
+  <el-main>
+    <div>
+        测试
     </div>
+  </el-main>
 </template>
 
 <script>

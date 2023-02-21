@@ -1,15 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <playtime/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/*import HelloWorld from './components/HelloWorld.vue'*/
 import 'element-plus/dist/index.css'
+import playtime from "@/components/playtime.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    /*HelloWorld*/
+    playtime
   }
 }
 </script>
