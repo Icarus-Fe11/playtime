@@ -1,5 +1,7 @@
 <template>
-  <playtime></playtime>
+  <div id="App">
+    <playtime></playtime>
+  </div>
 </template>
 
 <script>
