@@ -3,10 +3,10 @@
   <el-main>
     <div>
       <el-row>
-        <el-col :span="8" :offset="4"><div>{{ elapsedTime }}</div></el-col>
+        <el-col :span="8" :offset="4"><div v-bind:style="color">{{ myminutes }}:{{myseconds}}</div></el-col>
       </el-row>
       <el-row>
-        <el-col :span="8" :offset="4">{{status}}</el-col>
+        <el-col :span="8" :offset="4">{{status}}{{elapsedTime}}</el-col>
       </el-row>
       <el-row>
         <el-col><el-button @click="changeStatus">按钮</el-button></el-col>
@@ -22,36 +22,67 @@ export default {
   inject:['$axios'],
   data(){
     return{
-      elapsedTime:10000,
+      elapsedTime:1000000,
       status:"off",
+      color:"color:red",
+      interval:null,
     }
   },
 
 
   methods:{
-    getStatus(){
-        this.$axios.post('').then(response=>{
-          this.elapsedTime=response.data.elapsedTime;
-          this.status=response.data.status;
-        })
-      },
-    changeStatus(){
-      if(this.status=="off") this.status="on"
-        else this.status="off"
-    }
-    },
+        getStatus(){
+            this.$axios.post('/getinfo').then(response=>{
+              console.log(response.data.millisecond);
+              this.elapsedTime=response.data.millisecond;
+              this.status=response.data.flag;
+            })
+            if(this.status=="on"){
+              this.interval=setInterval(()=>{
+                this.elapsedTime-=1000;
+              },1000);
+            }
+          },
+        changeStatus(){
+          if(this.status=="off") {
+            this.$axios.post("changeswitch",{
+              flag: "on",
+            }).then(response => {
+              if (response.data.success == 200) {
+                this.status = "on";
+                this.interval = setInterval(() => {
+                  this.elapsedTime -= 1000;
+                }, 1000);
+              }
+            })
+          }
+          else{
+            this.$axios.post("changeswitch",{
+              flag:"off",
+            }).then(response=>{
+              if(response.data.success==200){
+                this.status="off";
+                clearInterval(this.interval);
+              }
+            })
+          }
+        }
+  },
 
 
 
   computed:{
-
+      myminutes(){
+        return Math.floor((this.elapsedTime%3600000)/60000);
+      },
+      myseconds(){
+        return Math.floor((this.elapsedTime%60000)/1000);
+      }
   },
 
 
   mounted() {
-      this.interval=setInterval(()=>{
-        this.elapsedTime--;
-      },1000);
+    this.getStatus()
   }
 }
 </script>
