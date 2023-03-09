@@ -9,7 +9,7 @@
         <el-col :span="8" :offset="4">{{status}}{{elapsedTime}}</el-col>
       </el-row>
       <el-row>
-        <el-col><el-button @click="changeStatus">按钮</el-button></el-col>
+        <el-col><el-switch @change="changeStatus" v-model="status">按钮</el-switch></el-col>
       </el-row>
     </div>
   </el-main>
@@ -81,7 +81,7 @@ export default {
   },
 
 
-  mounted() {
+  beforeMount() {
     this.getStatus()
   }
 }

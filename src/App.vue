@@ -14,7 +14,7 @@ export default {
     return{
       $axios:axios.create({
         baseURL:'http://localhost:996',
-        timeout:1000,
+        timeout:5000,
       })
     }
   },
